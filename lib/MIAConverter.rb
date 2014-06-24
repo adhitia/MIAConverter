@@ -37,7 +37,7 @@ module MIAConverter
 			@start_seconds = 0
 			@transition_time = 20
 			@length_seconds = 20
-
+                        @resolution = "200x120"
 			# Set instance variables from options dictionary
 			options.each {|key,value| self.instance_variable_set("@#{key}", value) }
 		end
@@ -145,7 +145,7 @@ module MIAConverter
     	seek_times.each.with_index do |time, idx|
           padded_string = "%010i" % idx
     	  file_name = "#{img_folder}/shot-#{padded_string}.jpg"
-  	  @chopped_movie.screenshot(file_name, { seek_time: time, resolution: '400x400' }, preserve_aspect_ratio: :width)
+  	  @chopped_movie.screenshot(file_name, { seek_time: time, resolution: @resolution }, preserve_aspect_ratio: :width)
     	end
 
     	still_image_paths
