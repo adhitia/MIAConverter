@@ -136,16 +136,16 @@ module MIAConverter
     def create_still_images
     	img_folder = get_images_folder # call once
 
-			# BUILD UP THE LIST OF SEEK_TIMES
-	    seek_times = (0.0...@length_seconds).step(@shot_gap).to_a.select do |time|
-	    	time <= @chopped_movie.duration || time <= @length_seconds
-	    end
+	# BUILD UP THE LIST OF SEEK_TIMES
+	seek_times = (0.0...@length_seconds).step(@shot_gap).to_a.select do |time|
+	  time <= @chopped_movie.duration || time <= @length_seconds
+	end
 
     	# SCREEN GRABS
     	seek_times.each.with_index do |time, idx|
-    		padded_string = "%010i" % idx
-    		file_name = "#{img_folder}/shot-#{padded_string}.jpg"
-  			@chopped_movie.screenshot(file_name, seek_time: time)
+          padded_string = "%010i" % idx
+    	  file_name = "#{img_folder}/shot-#{padded_string}.jpg"
+  	  @chopped_movie.screenshot(file_name, { seek_time: time, resolution: '200x120' }, preserve_aspect_ratio: :width)
     	end
 
     	still_image_paths
