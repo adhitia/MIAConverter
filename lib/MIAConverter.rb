@@ -153,7 +153,7 @@ module MIAConverter
 
 
     def create_animated_image
-    	animation = Magick::ImageList.new(*still_image_paths)
+    	animation = Magick::ImageList.new(*still_image_paths.sort!)
     	animation.delay = @transition_time    	
       animation.write(animated_gif_path)
 
