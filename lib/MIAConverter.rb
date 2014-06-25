@@ -127,7 +127,7 @@ module MIAConverter
     def extract_relevant_parts_of_video
       orig_movie = FFMPEG::Movie.new(@original_file)
       throw "Start Seconds beyond end of video" if @start_seconds > orig_movie.duration
-      @chopped_movie = orig_movie.transcode(chopped_video_path, duration: @length_seconds + 1, seek_time: @start_seconds)
+      @chopped_movie = orig_movie.transcode(chopped_video_path, duration: @length_seconds, seek_time: @start_seconds)
 
       chopped_video_path
     end
