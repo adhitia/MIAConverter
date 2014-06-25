@@ -138,7 +138,7 @@ module MIAConverter
         orig_movie = FFMPEG::Movie.new(@original_file)
 	# BUILD UP THE LIST OF SEEK_TIMES
 	seek_times = (0.0...@length_seconds).step(@shot_gap).to_a.select do |time|
-	  time <= @chopped_movie.duration || time <= @length_seconds
+	  time <= orig_movie.duration || time <= @length_seconds
 	end
 
     	# SCREEN GRABS
