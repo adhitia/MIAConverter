@@ -53,7 +53,7 @@ module MIAConverter
 		# * produces screenshots
 		# * turns screenshots into an animated GIF
 		def process
-			extract_relevant_parts_of_video
+		#	extract_relevant_parts_of_video
 			create_still_images
 			create_animated_image
 		end
@@ -135,7 +135,7 @@ module MIAConverter
 
     def create_still_images
     	img_folder = get_images_folder # call once
-
+        orig_movie = FFMPEG::Movie.new(@original_file)
 	# BUILD UP THE LIST OF SEEK_TIMES
 	seek_times = (0.0...@length_seconds).step(@shot_gap).to_a.select do |time|
 	  time <= @chopped_movie.duration || time <= @length_seconds
@@ -145,7 +145,7 @@ module MIAConverter
     	seek_times.each.with_index do |time, idx|
           padded_string = "%010i" % idx
     	  file_name = "#{img_folder}/shot-#{padded_string}.jpg"
-  	  @chopped_movie.screenshot(file_name, { seek_time: time, resolution: @resolution }, preserve_aspect_ratio: :width)
+  	  orig_movie.screenshot(file_name, { seek_time: time, resolution: @resolution }, preserve_aspect_ratio: :width)
     	end
 
     	still_image_paths
