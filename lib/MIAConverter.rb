@@ -154,8 +154,12 @@ module MIAConverter
 
     def create_animated_image
     	animation = Magick::ImageList.new(*still_image_paths.sort!)
+    	
+    	# Re-optimize the GIF frames
+	animation = animation.optimize_layers( Magick::OptimizeLayer )
+
     	animation.delay = @transition_time    	
-      animation.write(animated_gif_path)
+        animation.write(animated_gif_path)
 
     	animated_gif_path
     end
